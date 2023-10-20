@@ -6,12 +6,14 @@ import {
   Route,
   Routes,
   Navigate,
+  Outlet,
 } from "react-router-dom";
 
 import "./App.css";
 import { ENABLED_HASH_ROUTER } from "./config";
 import { RouteKey, rc } from "./routes";
 import HomePage from "./pages/Home";
+import AppLayout from "./components/AppLayout";
 
 function RouterComponent(props) {
   return ENABLED_HASH_ROUTER ? (
@@ -27,10 +29,19 @@ export function App() {
       <RouterComponent>
         <Routes>
           <Route
-            index={true}
-            element={<Navigate to={rc(RouteKey.Home).path} replace />}
-          />
-          <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
+            path="/"
+            element={
+              <AppLayout>
+                <Outlet />
+              </AppLayout>
+            }
+          >
+            <Route
+              index={true}
+              element={<Navigate to={rc(RouteKey.Home).path} replace />}
+            />
+            <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
+          </Route>
         </Routes>
       </RouterComponent>
     </StyleProvider>
