@@ -1,31 +1,48 @@
-import { Card, Carousel, Space, Typography } from "antd";
+import { Button, Card, Carousel, Space, Typography } from "antd";
+import "./style.css";
 
 const HomeCard = () => {
+  const handleDeleteCard = () => {
+    console.log(123);
+  };
   return (
     <Card
       hoverable
       style={{
         width: "100%",
       }}
+      headStyle={{ textAlign: "left" }}
+      bodyStyle={{ textAlign: "left" }}
       cover={
-        <Carousel>
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        </Carousel>
+        <div style={{ position: "relative" }}>
+          <Carousel autoplay autoplaySpeed={5000}>
+            <img
+              alt="example"
+              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            />
+            <img
+              alt="example"
+              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            />
+            <img
+              alt="example"
+              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            />
+            <img
+              alt="example"
+              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            />
+          </Carousel>
+          <Button
+            type="primary"
+            danger
+            shape="circle"
+            style={{ width: 32, position: "absolute", right: 8, top: 8 }}
+            onClick={handleDeleteCard}
+          >
+            X
+          </Button>
+        </div>
       }
     >
       <Typography.Title level={5} ellipsis>
