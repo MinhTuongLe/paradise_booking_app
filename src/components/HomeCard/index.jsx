@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Button, Card, Carousel, Space, Typography } from "antd";
 import "./style.css";
+import { Link } from "react-router-dom";
+import { RouteKey, rc } from "../../routes";
 
 const HomeCard = ({ data, onDelete }) => {
-  const { name, address, description, pricePerNight } = data;
+  const { id, name, address, description, pricePerNight } = data;
   const handleDeleteCard = () => {
     onDelete(name);
   };
-
-  // console.log(data);
 
   return (
     <Card
@@ -20,24 +20,26 @@ const HomeCard = ({ data, onDelete }) => {
       bodyStyle={{ textAlign: "left" }}
       cover={
         <div style={{ position: "relative" }}>
-          <Carousel autoplay autoplaySpeed={5000}>
-            <img
-              alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            />
-            <img
-              alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            />
-            <img
-              alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            />
-            <img
-              alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            />
-          </Carousel>
+          <Link to={rc(RouteKey.PlaceDetail).pather(id)}>
+            <Carousel autoplay autoplaySpeed={5000}>
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            </Carousel>
+          </Link>
           <Button
             type="primary"
             danger

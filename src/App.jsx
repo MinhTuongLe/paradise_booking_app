@@ -14,6 +14,7 @@ import { ENABLED_HASH_ROUTER } from "./config";
 import { RouteKey, rc } from "./routes";
 import HomePage from "./pages/Home";
 import AppLayout from "./components/AppLayout";
+import PlaceDetailPage from "./pages/PlaceDetail";
 
 function RouterComponent(props) {
   return ENABLED_HASH_ROUTER ? (
@@ -41,6 +42,17 @@ export function App() {
               element={<Navigate to={rc(RouteKey.Home).path} replace />}
             />
             <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
+            <Route
+              path={`${rc(RouteKey.Home).path}/*`}
+              element={
+                <Routes>
+                  <Route
+                    path={rc(RouteKey.PlaceDetail).subpath}
+                    element={<PlaceDetailPage />}
+                  />
+                </Routes>
+              }
+            />
           </Route>
         </Routes>
       </RouterComponent>

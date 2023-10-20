@@ -1,60 +1,70 @@
 {
   "places-data": [
     {
+      "id": 1,
       "name": "Place1",
       "address": "Quy Nhon",
       "pricePerNight": 3322,
       "description": "aa"
     },
     {
+      "id": 2,
       "name": "Place2",
       "address": "TPHCM",
       "pricePerNight": 9332,
-      "description": "aa" 
+      "description": "aa"
     },
     {
+      "id": 3,
       "name": "Place3",
       "address": "Tien Giang",
       "pricePerNight": 3322,
       "description": "aa"
     },
     {
+      "id": 4,
       "name": "Place4",
       "address": "Bac Lieu",
       "pricePerNight": 6723,
       "description": "aa"
     },
     {
+      "id": 5,
       "name": "Place5",
       "address": "Nghe An",
       "pricePerNight": 3322,
       "description": "aa"
     },
     {
+      "id": 6,
       "name": "Place6",
       "address": "Dak Lak",
       "pricePerNight": 9866,
       "description": "aa"
     },
     {
+      "id": 7,
       "name": "Place7",
       "address": "Gia Lai",
       "pricePerNight": 4544,
       "description": "aa"
     },
     {
+      "id": 8,
       "name": "Place8",
       "address": "Binh Dinh",
       "pricePerNight": 1231,
       "description": "aa"
     },
     {
+      "id": 9,
       "name": "Place9",
       "address": "Ha Noi",
       "pricePerNight": 6789,
       "description": "aa"
     },
     {
+      "id": 10,
       "name": "Place10",
       "address": "Quang Nam",
       "pricePerNight": 3734,

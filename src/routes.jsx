@@ -1,14 +1,26 @@
 /* eslint-disable react-refresh/only-export-components */
+import { generatePath } from "react-router-dom";
+
 export const RouteKey = {
   Home: "Home",
+  PlaceDetail: "PlaceDetail",
 };
 
 export const routeMap = new Map(
   [
     {
       id: RouteKey.Home,
-      name: "home",
-      path: "/home",
+      name: "place list",
+      path: "/place-list",
+    },
+    {
+      id: RouteKey.PlaceDetail,
+      name: "place detail",
+      path: "/place-list/:id",
+      subpath: ":id",
+      pather(id) {
+        return generatePath(this.path, { id });
+      },
     },
   ].map((route) => [route.id, route])
 );
