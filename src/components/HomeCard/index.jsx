@@ -1,10 +1,15 @@
+/* eslint-disable react/prop-types */
 import { Button, Card, Carousel, Space, Typography } from "antd";
 import "./style.css";
 
-const HomeCard = () => {
+const HomeCard = ({ data, onDelete }) => {
+  const { name, address, description, pricePerNight } = data;
   const handleDeleteCard = () => {
-    console.log(123);
+    onDelete(name);
   };
+
+  // console.log(data);
+
   return (
     <Card
       hoverable
@@ -46,16 +51,18 @@ const HomeCard = () => {
       }
     >
       <Typography.Title level={5} ellipsis>
-        Dubai, Các Tiểu Vương Quốc Ả Rập Thống Nhất
+        {name}
       </Typography.Title>
-      <Space direction="vertical" style={{ textAlign: "start" }}>
-        <Typography.Text>Cách 5.164km</Typography.Text>
-        <Typography.Text>Ngày 18 - Ngày 23 tháng 11</Typography.Text>
+      <Space direction="vertical">
+        <Space direction="vertical">
+          <Typography.Text>{address}</Typography.Text>
+          <Typography.Text>{description}</Typography.Text>
+        </Space>
+        <Typography.Text>
+          <span>${pricePerNight}</span>
+          <span> / Đêm</span>
+        </Typography.Text>
       </Space>
-      <Typography.Text>
-        <span>$232</span>
-        <span> / Đêm</span>
-      </Typography.Text>
     </Card>
   );
 };
