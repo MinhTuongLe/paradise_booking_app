@@ -6,6 +6,7 @@ import { RouteKey, rc } from "../../routes";
 
 const HomeCard = ({ data, onDelete }) => {
   const { id, name, address, description, pricePerNight } = data;
+
   const handleDeleteCard = () => {
     onDelete(name);
   };
@@ -20,7 +21,7 @@ const HomeCard = ({ data, onDelete }) => {
       bodyStyle={{ textAlign: "left" }}
       cover={
         <div style={{ position: "relative" }}>
-          <Link to={rc(RouteKey.PlaceDetail).pather(id)}>
+          <Link to={rc(RouteKey.PlaceDetail).pather(id)} target="_blank">
             <Carousel autoplay autoplaySpeed={5000}>
               <img
                 alt="example"

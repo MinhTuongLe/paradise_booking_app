@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { Form, Input, InputNumber, Modal } from "antd";
 import { useEffect } from "react";
+import { useCreatePlaceMutation } from "../apiSlice";
 
 const defaultSubmit = {
   name: "",
@@ -12,11 +14,18 @@ const defaultSubmit = {
 
 const PlaceForm = (props) => {
   const [form] = Form.useForm();
+  const [createPlace] = useCreatePlaceMutation();
   const handleSubmit = () => {
     form
       .validateFields()
       .then((values) => {
-        console.log(values);
+        createPlace({
+          ...defaultSubmit,
+          ...values,
+        }).unwrap().then(()=>{
+          console.log("Create successfully!!!")
+          props.onDone()
+        }).catch(err => console.log(err));
       })
       .catch((err) => console.log(err));
   };
