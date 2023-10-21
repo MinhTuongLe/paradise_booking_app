@@ -12,7 +12,6 @@ const defaultSubmit = {
 
 const PlaceForm = (props) => {
   const [form] = Form.useForm();
-  //   console.log(props);
   const handleSubmit = () => {
     form
       .validateFields()

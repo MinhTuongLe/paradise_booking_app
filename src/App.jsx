@@ -15,6 +15,8 @@ import { RouteKey, rc } from "./routes";
 import HomePage from "./pages/Home";
 import AppLayout from "./components/AppLayout";
 import PlaceDetailPage from "./pages/PlaceDetail";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function RouterComponent(props) {
   return ENABLED_HASH_ROUTER ? (
@@ -27,35 +29,37 @@ function RouterComponent(props) {
 export function App() {
   return (
     <StyleProvider hashPriority="high">
-      <RouterComponent>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <AppLayout>
-                <Outlet />
-              </AppLayout>
-            }
-          >
+      <Provider store={store}>
+        <RouterComponent>
+          <Routes>
             <Route
-              index={true}
-              element={<Navigate to={rc(RouteKey.Home).path} replace />}
-            />
-            <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
-            <Route
-              path={`${rc(RouteKey.Home).path}/*`}
+              path="/"
               element={
-                <Routes>
-                  <Route
-                    path={rc(RouteKey.PlaceDetail).subpath}
-                    element={<PlaceDetailPage />}
-                  />
-                </Routes>
+                <AppLayout>
+                  <Outlet />
+                </AppLayout>
               }
-            />
-          </Route>
-        </Routes>
-      </RouterComponent>
+            >
+              <Route
+                index={true}
+                element={<Navigate to={rc(RouteKey.Home).path} replace />}
+              />
+              <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
+              <Route
+                path={`${rc(RouteKey.Home).path}/*`}
+                element={
+                  <Routes>
+                    <Route
+                      path={rc(RouteKey.PlaceDetail).subpath}
+                      element={<PlaceDetailPage />}
+                    />
+                  </Routes>
+                }
+              />
+            </Route>
+          </Routes>
+        </RouterComponent>
+      </Provider>
     </StyleProvider>
   );
 }

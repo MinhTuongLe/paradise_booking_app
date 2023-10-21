@@ -1,12 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Button, Col, Row, Space } from "antd";
 import HomeCard from "../../components/HomeCard";
 import places_data from "../../mock-data/places.json";
 import PlaceForm from "./components/Form";
 import { useState } from "react";
+import { useGetIndexPlaceQuery } from "./apiSlice";
 
 const HomePage = () => {
   const [formData, setFormData] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const { data, error } = useGetIndexPlaceQuery();
+  console.log(data);
   const handleDeletetCard = (name) => {
     console.log(name);
   };
