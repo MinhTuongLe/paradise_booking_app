@@ -10,6 +10,18 @@ const HomePage = () => {
   const [formData, setFormData] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
+  const fetchData = async () => {
+    try {
+      const data = await indexPlace();
+      setPlaceList(data);
+    } catch (error) {
+      console.error(error);
+      notification.error({
+        message: "Failed to fetch data",
+      });
+    }
+  };
+
   const handleDeleteCard = async (id, name) => {
     try {
       const loginResponse = await login({
@@ -17,20 +29,25 @@ const HomePage = () => {
         password: "123456",
       });
 
-      console.log(loginResponse.data.accessToken);
       const accessToken = loginResponse.data.accessToken;
 
       Modal.confirm({
         title: `Delete ${name}`,
         content: `Do you want to delete ${name}?`,
         centered: true,
-        onOk: () => {
-          const createPlaceResponse = deletePlace(id, accessToken);
-
-          console.log(createPlaceResponse);
-          notification.success({
-            message: `Delete place ${name} successfully!`,
-          });
+        onOk: async () => {
+          try {
+            await deletePlace(id, accessToken);
+            notification.success({
+              message: `Delete place ${name} successfully!`,
+            });
+            fetchData();
+          } catch (error) {
+            console.error(error);
+            notification.error({
+              message: `Delete place ${name} failed!`,
+            });
+          }
         },
       });
     } catch (error) {
@@ -40,30 +57,19 @@ const HomePage = () => {
       });
     }
   };
+
   const handleCloseModal = () => {
     setIsOpenModal(false);
     setFormData(undefined);
+    fetchData();
   };
+
   const handleOpenModal = () => {
     setIsOpenModal(true);
   };
+
   useEffect(() => {
-    let isMounted = true;
-
-    indexPlace()
-      .then((data) => {
-        if (isMounted) {
-          setPlaceList(data);
-          console.log(data);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    return () => {
-      isMounted = false;
-    };
+    fetchData();
   }, []);
 
   return (
