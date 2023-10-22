@@ -29,12 +29,13 @@ const PlaceForm = (props) => {
       const createPlaceResponse = await createPlace(
         {
           ...defaultSubmit,
-          values,
+          ...values,
         },
         accessToken
       );
 
       console.log(createPlaceResponse);
+      props.onDone();
     } catch (error) {
       console.error(error);
       const errElm = document.querySelector(".ant-form-item-has-error");

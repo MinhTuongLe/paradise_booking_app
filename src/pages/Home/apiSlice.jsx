@@ -23,7 +23,7 @@ export const indexPlace = async (params) => {
 
 export const getPlaceById = async (id, params) => {
   try {
-    const response = await axios.get(`${BASE_URL}/places/${id}`, { params });
+    const response = await axios.get(`${  }/places/${id}`, { params });
     return response.data;
   } catch (error) {
     throw error;
@@ -36,12 +36,12 @@ export const createPlace = async (place, accessToken) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      params: {
+        location_id: 1,
+      },
     };
-    const response = await axios.post(
-      `${BASE_URL}/places?location_id=1`,
-      place,
-      config
-    );
+    console.log(accessToken);
+    const response = await axios.post(`${BASE_URL}/places`, place, config);
     return response.data;
   } catch (error) {
     throw error;

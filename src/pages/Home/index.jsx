@@ -10,7 +10,7 @@ const HomePage = () => {
   const [formData, setFormData] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleDeletetCard = async (id) => {
+  const handleDeleteCard = async (id) => {
     try {
       const loginResponse = await login({
         email: "lamlklk2002@gmail.com",
@@ -70,7 +70,7 @@ const HomePage = () => {
         {placeList &&
           placeList.map((place, index) => (
             <Col span={4} key={index}>
-              <HomeCard data={place} onDelete={handleDeletetCard} />
+              <HomeCard data={place} onDelete={handleDeleteCard} />
             </Col>
           ))}
       </Row>
