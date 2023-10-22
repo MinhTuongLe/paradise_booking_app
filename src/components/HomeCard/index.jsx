@@ -18,26 +18,26 @@ const HomeCard = ({ data, onDelete }) => {
         width: "100%",
       }}
       headStyle={{ textAlign: "left" }}
-      bodyStyle={{ textAlign: "left" }}
+      bodyStyle={{ textAlign: "left", padding: 12 }}
       cover={
         <div style={{ position: "relative" }}>
           <Link to={rc(RouteKey.PlaceDetail).pather(id)} target="_blank">
             <Carousel autoplay autoplaySpeed={5000}>
               <img
                 alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                src="https://a0.muscache.com/im/pictures/miso/Hosting-53505989/original/607235e0-45d3-4450-b507-b9b0477d68d9.jpeg?im_w=1200"
               />
               <img
                 alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                src="https://a0.muscache.com/im/pictures/miso/Hosting-53505989/original/607235e0-45d3-4450-b507-b9b0477d68d9.jpeg?im_w=1200"
               />
               <img
                 alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                src="https://a0.muscache.com/im/pictures/miso/Hosting-53505989/original/607235e0-45d3-4450-b507-b9b0477d68d9.jpeg?im_w=1200"
               />
               <img
                 alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                src="https://a0.muscache.com/im/pictures/miso/Hosting-53505989/original/607235e0-45d3-4450-b507-b9b0477d68d9.jpeg?im_w=1200"
               />
             </Carousel>
           </Link>
@@ -53,7 +53,7 @@ const HomeCard = ({ data, onDelete }) => {
         </div>
       }
     >
-      <Typography.Title level={5} ellipsis>
+      <Typography.Title level={5} ellipsis style={{ margin: 0 }}>
         {name}
       </Typography.Title>
       <Space direction="vertical">
