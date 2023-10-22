@@ -3,16 +3,29 @@ import { Button, Col, Row, Space } from "antd";
 import HomeCard from "../../components/HomeCard";
 import PlaceForm from "./components/Form";
 import { useEffect, useState } from "react";
-import { useGetIndexPlaceQuery } from "./apiSlice";
+import { deletePlace, indexPlace, login } from "./apiSlice";
 
 const HomePage = () => {
   const [placeList, setPlaceList] = useState([]);
   const [formData, setFormData] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { data, error } = useGetIndexPlaceQuery();
 
-  const handleDeletetCard = (name) => {
-    console.log(name);
+  const handleDeletetCard = async (id) => {
+    try {
+      const loginResponse = await login({
+        email: "lamlklk2002@gmail.com",
+        password: "123456",
+      });
+
+      console.log(loginResponse.data.accessToken);
+      const accessToken = loginResponse.data.accessToken;
+
+      const createPlaceResponse = await deletePlace(id, accessToken);
+
+      console.log(createPlaceResponse);
+    } catch (error) {
+      console.error(error);
+    }
   };
   const handleCloseModal = () => {
     setIsOpenModal(false);
@@ -22,14 +35,23 @@ const HomePage = () => {
     setIsOpenModal(true);
   };
   useEffect(() => {
-    if (data) {
-      setPlaceList(data);
-    }
-  }, [data]);
+    let isMounted = true;
 
-  useEffect(() => {
-    if (error) console.log(error);
-  });
+    indexPlace()
+      .then((data) => {
+        if (isMounted) {
+          setPlaceList(data);
+          console.log(data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -45,11 +67,12 @@ const HomePage = () => {
         </Button>
       </Space>
       <Row gutter={[16, 16]}>
-        {placeList.map((place, index) => (
-          <Col span={4} key={index}>
-            <HomeCard data={place} onDelete={handleDeletetCard} />
-          </Col>
-        ))}
+        {placeList &&
+          placeList.map((place, index) => (
+            <Col span={4} key={index}>
+              <HomeCard data={place} onDelete={handleDeletetCard} />
+            </Col>
+          ))}
       </Row>
       <PlaceForm
         title="Add New Place"

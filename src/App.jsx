@@ -15,8 +15,8 @@ import { RouteKey, rc } from "./routes";
 import HomePage from "./pages/Home";
 import AppLayout from "./components/AppLayout";
 import PlaceDetailPage from "./pages/PlaceDetail";
-import store from "./store";
-import { Provider } from "react-redux";
+// import store from "./store";
+// import { Provider } from "react-redux";
 
 function RouterComponent(props) {
   return ENABLED_HASH_ROUTER ? (
@@ -29,37 +29,37 @@ function RouterComponent(props) {
 export function App() {
   return (
     <StyleProvider hashPriority="high">
-      <Provider store={store}>
-        <RouterComponent>
-          <Routes>
+      <RouterComponent>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AppLayout>
+                <Outlet />
+              </AppLayout>
+            }
+          >
             <Route
-              path="/"
+              index={true}
+              element={<Navigate to={rc(RouteKey.Home).path} replace />}
+            />
+            <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
+            <Route
+              path={`${rc(RouteKey.Home).path}/*`}
               element={
-                <AppLayout>
-                  <Outlet />
-                </AppLayout>
+                <Routes>
+                  <Route
+                    path={rc(RouteKey.PlaceDetail).subpath}
+                    element={<PlaceDetailPage />}
+                  />
+                </Routes>
               }
-            >
-              <Route
-                index={true}
-                element={<Navigate to={rc(RouteKey.Home).path} replace />}
-              />
-              <Route path={rc(RouteKey.Home).path} element={<HomePage />} />
-              <Route
-                path={`${rc(RouteKey.Home).path}/*`}
-                element={
-                  <Routes>
-                    <Route
-                      path={rc(RouteKey.PlaceDetail).subpath}
-                      element={<PlaceDetailPage />}
-                    />
-                  </Routes>
-                }
-              />
-            </Route>
-          </Routes>
-        </RouterComponent>
-      </Provider>
+            />
+          </Route>
+        </Routes>
+      </RouterComponent>
+      {/* <Provider store={store}>
+      </Provider> */}
     </StyleProvider>
   );
 }

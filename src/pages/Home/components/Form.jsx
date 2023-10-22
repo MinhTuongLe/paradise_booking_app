@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { Form, Input, InputNumber, Modal } from "antd";
 import { useEffect } from "react";
-import { useCreatePlaceMutation } from "../apiSlice";
+import { createPlace, login } from "../apiSlice";
 
 const defaultSubmit = {
   name: "",
@@ -14,21 +14,36 @@ const defaultSubmit = {
 
 const PlaceForm = (props) => {
   const [form] = Form.useForm();
-  const [createPlace] = useCreatePlaceMutation();
-  const handleSubmit = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        createPlace({
+
+  const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const loginResponse = await login({
+        email: "lamlklk2002@gmail.com",
+        password: "123456",
+      });
+
+      console.log(loginResponse.data.accessToken);
+      const accessToken = loginResponse.data.accessToken;
+
+      const createPlaceResponse = await createPlace(
+        {
           ...defaultSubmit,
-          ...values,
-        }).unwrap().then(()=>{
-          console.log("Create successfully!!!")
-          props.onDone()
-        }).catch(err => console.log(err));
-      })
-      .catch((err) => console.log(err));
+          values,
+        },
+        accessToken
+      );
+
+      console.log(createPlaceResponse);
+    } catch (error) {
+      console.error(error);
+      const errElm = document.querySelector(".ant-form-item-has-error");
+      if (errElm) {
+        errElm.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }
   };
+
   useEffect(() => {
     if (!props.open) {
       form.resetFields();

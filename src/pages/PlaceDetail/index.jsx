@@ -1,23 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
-import { useGetPlaceByIdQuery } from "../Home/apiSlice";
+// import { useGetPlaceByIdQuery } from "../Home/apiSlice";
 import { Carousel, Col, Row, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
+import { getPlaceById } from "../Home/apiSlice";
 
 const PlaceDetailPage = () => {
   const params = useParams();
 
-  const { data } = useGetPlaceByIdQuery({
-    id: params.id,
-  });
-
-  const [placeDetail, setPlaceDetail] = useState();
+  const [placeDetail, setPlaceDetail] = useState(undefined);
   useEffect(() => {
-    if (data) {
-      setPlaceDetail(data.data);
-    }
-  }, [data]);
-
+    let isMounted = true;
+    getPlaceById(params.id)
+      .then((data) => {
+        if (isMounted) {
+          setPlaceDetail(data.data);
+          console.log(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   return (
     <>
       {placeDetail && (
