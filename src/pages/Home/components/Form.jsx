@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { Form, Input, InputNumber, Modal } from "antd";
+import { Form, Input, InputNumber, Modal, notification } from "antd";
 import { useEffect } from "react";
 import { createPlace, login } from "../apiSlice";
 
@@ -36,12 +36,18 @@ const PlaceForm = (props) => {
 
       console.log(createPlaceResponse);
       props.onDone();
+      notification.success({
+        message: "Create new place successfully!",
+      });
     } catch (error) {
       console.error(error);
       const errElm = document.querySelector(".ant-form-item-has-error");
       if (errElm) {
         errElm.scrollIntoView({ behavior: "smooth", block: "end" });
       }
+      notification.error({
+        message: "Create new place failed!"
+      })
     }
   };
 

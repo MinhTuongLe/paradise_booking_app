@@ -8,7 +8,7 @@ const HomeCard = ({ data, onDelete }) => {
   const { id, name, address, description, pricePerNight } = data;
 
   const handleDeleteCard = () => {
-    onDelete(id);
+    onDelete(id, name);
   };
 
   return (

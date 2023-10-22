@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Button, Col, Row, Space } from "antd";
+import { Button, Col, Modal, Row, Space, notification } from "antd";
 import HomeCard from "../../components/HomeCard";
 import PlaceForm from "./components/Form";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ const HomePage = () => {
   const [formData, setFormData] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleDeleteCard = async (id) => {
+  const handleDeleteCard = async (id, name) => {
     try {
       const loginResponse = await login({
         email: "lamlklk2002@gmail.com",
@@ -20,11 +20,24 @@ const HomePage = () => {
       console.log(loginResponse.data.accessToken);
       const accessToken = loginResponse.data.accessToken;
 
-      const createPlaceResponse = await deletePlace(id, accessToken);
+      Modal.confirm({
+        title: `Delete ${name}`,
+        content: `Do you want to delete ${name}?`,
+        centered: true,
+        onOk: () => {
+          const createPlaceResponse = deletePlace(id, accessToken);
 
-      console.log(createPlaceResponse);
+          console.log(createPlaceResponse);
+          notification.success({
+            message: `Delete place ${name} successfully!`,
+          });
+        },
+      });
     } catch (error) {
       console.error(error);
+      notification.error({
+        message: `Delete place ${name} failed!`,
+      });
     }
   };
   const handleCloseModal = () => {
