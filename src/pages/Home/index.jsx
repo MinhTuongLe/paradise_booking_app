@@ -22,14 +22,9 @@ const HomePage = () => {
     }
   };
 
-  const handleDeleteCard = async (id, name) => {
+  const handleDeleteCard = (id, name) => {
     try {
-      const loginResponse = await login({
-        email: "lamlklk2002@gmail.com",
-        password: "123456",
-      });
-
-      const accessToken = loginResponse.data.accessToken;
+      const accessToken = localStorage.getItem("access-token");
 
       Modal.confirm({
         title: `Delete ${name}`,
@@ -68,7 +63,17 @@ const HomePage = () => {
     setIsOpenModal(true);
   };
 
+  const handleLogin = async () => {
+    const loginResponse = await login({
+      email: "lamlklk2002@gmail.com",
+      password: "123456",
+    });
+    const accessToken = loginResponse.data.accessToken;
+    localStorage.setItem("access-token", accessToken);
+  };
+
   useEffect(() => {
+    handleLogin();
     fetchData();
   }, []);
 

@@ -18,13 +18,7 @@ const PlaceForm = (props) => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      const loginResponse = await login({
-        email: "lamlklk2002@gmail.com",
-        password: "123456",
-      });
-
-      console.log(loginResponse.data.accessToken);
-      const accessToken = loginResponse.data.accessToken;
+      const accessToken = localStorage.getItem("access-token");
 
       const createPlaceResponse = await createPlace(
         {
@@ -46,8 +40,8 @@ const PlaceForm = (props) => {
         errElm.scrollIntoView({ behavior: "smooth", block: "end" });
       }
       notification.error({
-        message: "Create new place failed!"
-      })
+        message: "Create new place failed!",
+      });
     }
   };
 
